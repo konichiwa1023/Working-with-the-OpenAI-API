@@ -1,0 +1,13 @@
+# Load image and transform to tensor
+image = Image.open("images/Egyptian_Mau_123.jpg")
+transform = transforms.Compose([transforms.ToTensor()])
+image_tensor = transform(image)
+
+# Segment object out of the image
+object_tensor = image_tensor * binary_mask
+
+# Convert segmented object to image and display
+to_pil_image = transforms.ToPILImage()
+object_image = to_pil_image(object_tensor)
+plt.imshow(object_image)
+plt.show()
