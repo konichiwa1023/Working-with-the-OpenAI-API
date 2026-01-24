@@ -1,0 +1,11 @@
+# Extract masks and labels from prediction
+masks = prediction[0]["masks"]
+labels = prediction[0]["labels"]
+
+# Plot image with two overlaid masks
+for i in range(2):
+    plt.imshow(image)
+    # Overlay the i-th mask on top of the image
+    plt.imshow(masks[i, 0], cmap="jet", alpha=0.5)
+    plt.title(f"Object: {class_names[labels[i]]}")
+    plt.show()
