@@ -1,0 +1,14 @@
+# Instantiate the model
+model = UNet()
+
+# Produce semantic masks for the input image
+with torch.no_grad():
+    semantic_masks = model(image_tensor)
+
+# Choose highest-probability class for each pixel
+semantic_mask = torch.argmax(semantic_masks, dim=1)
+
+# Display the mask
+plt.imshow(semantic_mask.squeeze(0))
+plt.axis("off")
+plt.show()
