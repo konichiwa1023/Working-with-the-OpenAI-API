@@ -1,0 +1,19 @@
+# Instantiate model and produce instance masks
+model = MaskRCNN()
+with torch.no_grad():
+    instance_masks = model(image_tensor)[0]["masks"]
+
+# Initialize panoptic mask as semantic_mask
+panoptic_mask = torch.clone(semantic_mask)
+
+# Iterate over instance masks
+instance_id = 3
+for mask in instance_masks:
+    # Set panoptic mask to instance_id where mask > 0.5
+    panoptic_mask[mask > 0.5] = instance_id
+    instance_id += 1
+    
+# Display panoptic mask
+plt.imshow(panoptic_mask.squeeze(0))
+plt.axis("off")
+plt.show()
