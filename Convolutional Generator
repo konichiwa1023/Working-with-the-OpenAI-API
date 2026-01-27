@@ -1,0 +1,18 @@
+class DCGenerator(nn.Module):
+    def __init__(self, in_dim, kernel_size=4, stride=2):
+        super(DCGenerator, self).__init__()
+        self.in_dim = in_dim
+        self.gen = nn.Sequential(
+            dc_gen_block(in_dim, 1024, kernel_size, stride),
+            dc_gen_block(1024, 512, kernel_size, stride),
+            # Add last generator block
+            ____,
+            # Add transposed convolution
+            ____(____, ____, kernel_size, stride=stride),
+            # Add tanh activation
+            ____
+        )
+
+    def forward(self, x):
+        x = x.view(len(x), self.in_dim, 1, 1)
+        return self.gen(x)
